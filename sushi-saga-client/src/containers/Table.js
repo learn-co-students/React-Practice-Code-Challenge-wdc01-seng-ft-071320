@@ -13,7 +13,7 @@ const Table = (props) => {
       
       {props.money === 0 ? 
       <h1 className="remaining">
-        Your All Out of Money!
+        You're All Out of Money!
       </h1> : 
       <h1 className="remaining">
         You have: ${ props.money} remaining!
@@ -26,7 +26,7 @@ const Table = (props) => {
                and renders an empty plate
                for every element in the array
             */
-            renderPlates([])
+            renderPlates(props.plates)
           }
         </div>
       </div>

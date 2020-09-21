@@ -32,9 +32,6 @@ moreSushi = () => {
   })
 }
 
-allEatenSushi =() => {
-
-}
 
 eatenSushi = (sushi) => {
   // let newSushis = this.state.sushis.map(sushi => {return {...sushi, eaten: false}})
@@ -48,8 +45,6 @@ if(this.state.money >= sushi.price)
   else "You need more money"
 
 }
-
-  // this.state.money - sushi.price
   
 
 
@@ -64,7 +59,7 @@ if(this.state.money >= sushi.price)
         money={this.state.money}
         />
 
-        <Table money={this.state.money} />
+        <Table money={this.state.money} plates={this.state.eaten}/>
       </div>
     );
   }
