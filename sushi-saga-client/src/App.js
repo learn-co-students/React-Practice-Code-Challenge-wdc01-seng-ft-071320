@@ -11,8 +11,7 @@ class App extends Component {
     displaySushi: [],
     balance: 100,
     eatenSushi: [],
-    start: 0,
-    end: 4
+    start: 0
   }
 
   componentDidMount(){
@@ -30,7 +29,7 @@ class App extends Component {
   moreSushi = () => {
     let start = this.state.start
     let last = this.state.allSushi.length
-    let end = this.state.end
+    let end = start + 4
 
     if( end <= last - 1 ){
       start = start + 4
@@ -39,11 +38,10 @@ class App extends Component {
       start = 0
       end = 4
     }
-    
+
     this.setState({
       displaySushi: this.state.allSushi.slice(start,end),
-      start,
-      end
+      start
     })
   }
 
@@ -54,11 +52,11 @@ class App extends Component {
 
       let allSushi = this.state.allSushi.map(sushi => {
         if (sushi.id === ateSushi.id){
-          return {...sushi, eaten: !sushi.eaten}
+          return {...sushi, eaten: true}
         } else return sushi
       })
 
-      let displaySushi = allSushi.slice(this.state.start, this.state.end)
+      let displaySushi = allSushi.slice(this.state.start, this.state.start + 4)
 
       let balance = this.state.balance - ateSushi.price
 
