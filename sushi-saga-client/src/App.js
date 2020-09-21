@@ -11,6 +11,8 @@ class App extends Component {
     displaySushi: [],
     balance: 100,
     eatenSushi: [],
+    start: 0,
+    end: 4
   }
 
   componentDidMount(){
@@ -26,16 +28,21 @@ class App extends Component {
   }
 
   moreSushi = () => {
-    let start = this.state.displaySushi.slice(-1).pop().id
-    let last = this.state.allSushi.slice(-1).pop().id
-    let end = 0
-    if( start !== last ){
+    let start = this.state.start
+    let last = this.state.allSushi.length
+    let end = this.state.end
+    if( end <= last - 1 ){
+      start = start + 4
       end = start + 4
     } else {
       start = 0
       end = 4
     }
-    this.setState({displaySushi: this.state.allSushi.slice(start,end)})
+    this.setState({
+      displaySushi: this.state.allSushi.slice(start,end),
+      start,
+      end
+    })
   }
 
   eatSushi = (ateSushi) => {
@@ -46,7 +53,7 @@ class App extends Component {
           return {...sushi, eaten: !sushi.eaten}
         } else return sushi
       })
-      let displaySushi = allSushi.slice(0,4)
+      let displaySushi = allSushi.slice(this.state.start, this.state.end)
       let balance = this.state.balance - ateSushi.price
       this.setState({
         allSushi,
@@ -66,7 +73,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div >
           <Form addMoney={this.addMoney} />
         <div className="app">
           <SushiContainer 
