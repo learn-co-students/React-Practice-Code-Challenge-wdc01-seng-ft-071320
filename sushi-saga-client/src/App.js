@@ -11,7 +11,6 @@ class App extends Component {
   state = {
     allSushi: [],
     currentSushiIndex: 0,
-    currentFourSushi: [],
     budget: 40,
     moneySpent: 0,
     plates: []
@@ -22,8 +21,11 @@ class App extends Component {
     .then(res => res.json())
     .then(sushi => this.setState({
       allSushi: sushi.map(sushi => {return {...sushi, eaten: false}}),
-      currentFourSushi: sushi.slice(this.state.currentSushiIndex, this.state.currentSushiIndex + 4).map(sushi => {return {...sushi, eaten: false}})
     }))
+  }
+
+  getFourSushi = () => {
+    return this.state.allSushi.slice(this.state.currentSushiIndex, this.state.currentSushiIndex + 4)
   }
 
   getMoreSushi = () => {
@@ -39,18 +41,10 @@ class App extends Component {
         currentSushiIndex: newIndex
       })
     }
-      this.setState({
-      currentFourSushi: this.state.allSushi.slice(this.state.currentSushiIndex, this.state.currentSushiIndex + 4)
-      })
+    
     }
   
   eatSushi = (id, price) => {
-    let newCurrentArray = this.state.currentFourSushi.map(sushi => {
-      if(sushi.id === id || price > this.state.budget){
-        sushi.eaten = true
-      }
-      return sushi
-    })
 
     let updatedAllSushi = this.state.allSushi.map(sushi => {
       if(sushi.id === id || price > this.state.budget){
@@ -71,7 +65,6 @@ class App extends Component {
       // Set state with new values
       this.setState({
         allSushi: updatedAllSushi,
-        currentFourSushi: newCurrentArray,
         plates: eatenSushi,
         moneySpent: totalMoneySpent,
         budget: this.state.budget - price
@@ -89,10 +82,10 @@ class App extends Component {
   }
 
   render() {
-
+    let fourSushi = this.getFourSushi()
     return (
       <div className="app">
-        <SushiContainer eatSushi={this.eatSushi} getMoreSushi={this.getMoreSushi} currentFourSushi={this.state.currentFourSushi}/>
+        <SushiContainer eatSushi={this.eatSushi} getMoreSushi={this.getMoreSushi} currentFourSushi={fourSushi}/>
         <Table plates={this.state.plates} budget={this.state.budget}/>
         <Wallet addMoney={this.addMoney}/>
       </div>
