@@ -31,6 +31,7 @@ class App extends Component {
     let start = this.state.start
     let last = this.state.allSushi.length
     let end = this.state.end
+
     if( end <= last - 1 ){
       start = start + 4
       end = start + 4
@@ -38,6 +39,7 @@ class App extends Component {
       start = 0
       end = 4
     }
+    
     this.setState({
       displaySushi: this.state.allSushi.slice(start,end),
       start,
@@ -47,14 +49,19 @@ class App extends Component {
 
   eatSushi = (ateSushi) => {
     let eatenSushi = [...this.state.eatenSushi, ateSushi]
+
     if (this.state.balance >= ateSushi.price){
+
       let allSushi = this.state.allSushi.map(sushi => {
         if (sushi.id === ateSushi.id){
           return {...sushi, eaten: !sushi.eaten}
         } else return sushi
       })
+
       let displaySushi = allSushi.slice(this.state.start, this.state.end)
+
       let balance = this.state.balance - ateSushi.price
+
       this.setState({
         allSushi,
         displaySushi,
