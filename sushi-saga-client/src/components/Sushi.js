@@ -4,7 +4,7 @@ const Sushi = (props) => {
   return (
     <div className="sushi">
       <div className="plate" 
-           onClick={()=>props.eatSushi(props.sushi)}>
+           onClick={props.eatenSushi.includes(props.sushi)?null:()=>props.eatSushi(props.sushi)}>
         { 
           /* Tell me if this sushi has been eaten! */ 
           props.eatenSushi.includes(props.sushi)

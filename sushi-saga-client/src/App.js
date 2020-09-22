@@ -10,7 +10,8 @@ class App extends Component {
     sushis:[],
     firstSushiIndex: 0,
     eatenSushi:[],
-    money: 100
+    money: 100,
+    addFundsValue: null
   }
 
   componentDidMount(){
@@ -29,10 +30,16 @@ class App extends Component {
   }
 
   moreSushi=()=>{
-    let newIndex=this.state.firstSushiIndex+4
-    this.setState({
-      firstSushiIndex: newIndex
-    })
+    if(this.state.firstSushiIndex+4<this.state.sushis.length){
+      let newIndex=this.state.firstSushiIndex+4
+      this.setState({
+        firstSushiIndex: newIndex
+      })
+    }else{let newIndex=0
+      this.setState({
+        firstSushiIndex: newIndex
+      })}
+    
   }
 
   eatSushi=(sushi)=>{
@@ -48,11 +55,29 @@ class App extends Component {
     }
   }
 
+  onChangeForm=(input)=>{
+    this.setState({
+      addFundsValue: input
+    })
+  }
+  onSubmitForm=(e)=>{
+    let input = parseInt(this.state.addFundsValue,10)
+    let funds = this.state.money
+    e.preventDefault()
+    if(isNaN(input)){
+      console.log("invalid input")
+    } else {
+      this.setState({
+        money: funds + input
+      })
+    }
+  }
+
   render() {
     return (
       <div className="app">
         <SushiContainer sushis={this.sliceSushi()} moreSushi={this.moreSushi} eatSushi={this.eatSushi} eatenSushi={this.state.eatenSushi}/>
-        <Table money={this.state.money} eatenSushi={this.state.eatenSushi}/>
+        <Table money={this.state.money} eatenSushi={this.state.eatenSushi} onChangeForm={this.onChangeForm} onSubmitForm={this.onSubmitForm}/>
       </div>
     );
   }

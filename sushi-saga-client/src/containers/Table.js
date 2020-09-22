@@ -13,6 +13,13 @@ const Table = (props) => {
       <h1 className="remaining">
         You have: ${props.money} remaining!
       </h1>
+      <form onSubmit={props.onSubmitForm}>
+        <label>
+          Add Funds:
+        <input  onChange={(e)=>props.onChangeForm(e.target.value)}/>
+        </label>
+        <input type="Submit"/>
+      </form>
       <div className="table">
         <div className="stack">
           {
