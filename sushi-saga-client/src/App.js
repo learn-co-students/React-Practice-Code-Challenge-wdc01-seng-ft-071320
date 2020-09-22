@@ -37,12 +37,16 @@ eatenSushi = (sushi) => {
   // let newSushis = this.state.sushis.map(sushi => {return {...sushi, eaten: false}})
 let newArray = this.state.sushis
 
-if(this.state.money >= sushi.price)
+if(this.state.money >= sushi.price){
+
+  if(!this.state.eaten.includes(sushi.id))
   this.setState({
-    eaten: [...this.state.eaten, sushi],
+    eaten: [...this.state.eaten, sushi.id],
     money: this.state.money - sushi.price
   })
-  else "You need more money"
+  else if (this.state.money < sushi.price) 
+    alert (`You need more money`)
+}
 
 }
   

@@ -7,7 +7,7 @@ const Sushi = (props) => {
            onClick={() => props.eatenSushi(props.sushi)}>
         { 
           /* Tell me if this sushi has been eaten! */ 
-          props.eaten.includes(props.sushi) ? null : <img src={props.sushi.img_url} width="100%" />    
+          props.eaten.includes(props.sushi.id) ? null : <img src={props.sushi.img_url} width="100%" />    
         }
       </div>
       <h4 className="sushi-details">
