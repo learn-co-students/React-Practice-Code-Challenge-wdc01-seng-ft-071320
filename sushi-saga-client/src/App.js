@@ -48,7 +48,7 @@ class App extends Component {
   eatSushi = (ateSushi) => {
     let eatenSushi = [...this.state.eatenSushi, ateSushi]
 
-    if (this.state.balance >= ateSushi.price){
+    if (this.state.balance >= ateSushi.price && !ateSushi.eaten){
 
       let allSushi = this.state.allSushi.map(sushi => {
         if (sushi.id === ateSushi.id){
