@@ -30,17 +30,13 @@ class App extends Component {
     let start = this.state.start
     let last = this.state.allSushi.length
     let end = start + 4
-
-    if( end <= last - 1 ){
+    if( end <= last -1 ){
       start = start + 4
-      end = start + 4
     } else {
       start = 0
-      end = 4
     }
-
     this.setState({
-      displaySushi: this.state.allSushi.slice(start,end),
+      displaySushi: this.state.allSushi.slice(start,start+4),
       start
     })
   }
@@ -66,7 +62,7 @@ class App extends Component {
         balance,
         eatenSushi
       })
-    }
+    } 
   }
 
   addMoney = (event) => {
